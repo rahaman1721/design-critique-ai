@@ -1,13 +1,17 @@
 import { useState, useCallback, useRef } from 'react'
 import type { AppState, CritiqueCategory, PriorityFix, CritiqueHeader } from './types'
-import UploadZone from './components/UploadZone'
-import ImagePreview from './components/ImagePreview'
-import AnalysisPanel from './components/AnalysisPanel'
-import Header from './components/Header'
+import Sidebar from './components/Sidebar'
+import TopHeader from './components/TopHeader'
+import UploadDesignCard from './components/UploadedDesignCard'
+import HealthScoreCard from './components/HealthScoreCard'
+import PriorityFixesCard from './components/PriorityFixesCard'
+import CategoryBreakdownGrid from './components/CategoryBreakdownGrid'
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState('audit')
   const [state, setState] = useState<AppState>({ phase: 'idle' })
   const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
   const abortRef = useRef<AbortController | null>(null)
 
   const handleFile = useCallback(async (file: File) => {
@@ -93,7 +97,7 @@ export default function App() {
             } else if (ev.event === 'error') {
               setState({ phase: 'error', message: ev.message })
             }
-          } catch { /* ignore JSON parse errors in SSE chunks */ }
+          } catch { /* ignore JSON chunk errors */ }
         }
       }
     } catch (e: unknown) {
@@ -103,53 +107,86 @@ export default function App() {
     }
   }, [])
 
-  const handleReset = useCallback(() => {
-    abortRef.current?.abort()
-    setState({ phase: 'idle' })
-    setImageUrl(null)
-  }, [])
+  const triggerFileUpload = () => {
+    fileInputRef.current?.click()
+  }
 
-  const hasResult = state.phase === 'streaming' || state.phase === 'done' || state.phase === 'analyzing'
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) handleFile(file)
+  }
+
+  // Extract current critique data
+  const currentHeader = state.phase === 'streaming' || state.phase === 'done' ? state.header : null
+  const currentCategories = state.phase === 'streaming' || state.phase === 'done' ? state.categories : []
+  const currentFixes = state.phase === 'streaming' || state.phase === 'done' ? state.fixes : []
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
-      <Header onReset={hasResult ? handleReset : undefined} />
+    <div style={{
+      display: 'flex',
+      height: '100vh',
+      width: '100vw',
+      background: 'radial-gradient(ellipse at 80% 10%, rgba(30, 20, 60, 0.4) 0%, #07080e 70%)',
+      overflow: 'hidden',
+    }}>
+      {/* Hidden File Input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={handleInputChange}
+        style={{ display: 'none' }}
+      />
 
+      {/* Left Sidebar */}
+      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Main Content Area */}
       <main style={{
         flex: 1,
-        display: 'grid',
-        gridTemplateColumns: hasResult ? '420px 1fr' : '1fr',
-        gap: 0,
-        height: 'calc(100vh - 60px)',
-        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '24px 32px',
+        overflow: 'hidden auto',
+        height: '100%',
       }}>
-        {/* Left Panel */}
+        {/* Top Header */}
+        <TopHeader onNewUpload={triggerFileUpload} />
+
+        {/* Two-Column Audit Grid */}
         <div style={{
           display: 'flex',
-          flexDirection: 'column',
-          borderRight: hasResult ? '1px solid var(--border-subtle)' : 'none',
-          overflow: 'hidden',
+          gap: 24,
+          alignItems: 'flex-start',
         }}>
-          {!hasResult ? (
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
-              <UploadZone onFile={handleFile} />
-            </div>
-          ) : (
-            <ImagePreview
-              imageUrl={imageUrl}
-              state={state}
-              onReset={handleReset}
-              onNewFile={handleFile}
-            />
-          )}
-        </div>
+          {/* Column 1: Uploaded Design Card */}
+          <UploadDesignCard
+            imageUrl={imageUrl}
+            onTriggerUpload={triggerFileUpload}
+          />
 
-        {/* Right Panel */}
-        {hasResult && (
-          <div style={{ overflow: 'hidden auto' }}>
-            <AnalysisPanel state={state} />
+          {/* Column 2: Health Score, Priority Fixes & Breakdown */}
+          <div style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 20,
+            minWidth: 0,
+          }}>
+            {/* Health Score Card */}
+            <HealthScoreCard
+              score={currentHeader?.overall_score ?? 94}
+              grade={currentHeader?.overall_grade ?? 'A'}
+              summary={currentHeader?.summary ?? "Your design follows modern UI principles with excellent visual hierarchy, clarity and usability. A few improvements can make it truly outstanding."}
+            />
+
+            {/* Priority Fixes Card */}
+            <PriorityFixesCard fixes={currentFixes} />
+
+            {/* Category Breakdown Grid */}
+            <CategoryBreakdownGrid categories={currentCategories} />
           </div>
-        )}
+        </div>
       </main>
     </div>
   )
