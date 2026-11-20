@@ -1,80 +1,119 @@
+import { useState } from 'react'
+
 interface TopHeaderProps {
   onNewUpload: () => void
+  showAllCategories: boolean
+  onToggleCategories: () => void
 }
 
-export default function TopHeader({ onNewUpload }: TopHeaderProps) {
+export default function TopHeader({ onNewUpload, showAllCategories, onToggleCategories }: TopHeaderProps) {
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
   return (
     <div style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 0 20px',
+      padding: '0 0 24px',
       flexShrink: 0,
+      position: 'relative',
     }}>
       {/* Title & Subtitle */}
       <div>
         <h1 style={{
-          fontSize: '1.85rem',
-          fontWeight: 800,
+          fontSize: '1.9rem',
+          fontWeight: 700,
           letterSpacing: '-0.03em',
-          color: '#ffffff',
+          color: 'var(--text-primary)',
+          lineHeight: 1.2,
           marginBottom: 4,
         }}>
           Design Critique AI
         </h1>
         <p style={{
           fontSize: '0.88rem',
-          color: '#94a3b8',
+          color: 'var(--text-secondary)',
+          lineHeight: 1.5,
         }}>
           Get expert-level feedback on your design, powered by AI.
         </p>
       </div>
 
-      {/* Right Action Buttons */}
+      {/* Right Controls */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        {/* Category Pill Dropdown */}
-        <button style={{
-          background: 'rgba(255, 255, 255, 0.05)',
-          border: '1px solid rgba(255, 255, 255, 0.09)',
-          borderRadius: 10,
-          padding: '9px 14px',
-          color: '#cbd5e1',
-          fontSize: '0.78rem',
-          fontWeight: 700,
-          letterSpacing: '0.04em',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          cursor: 'pointer',
-        }}>
-          <span>15-CATEGORY AUDIT</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
+        {/* Category Filter Dropdown Pill */}
+        <div style={{ position: 'relative' }}>
+          <button
+            onClick={() => {
+              setDropdownOpen(!dropdownOpen)
+              onToggleCategories()
+            }}
+            style={{
+              background: 'var(--bg-elevated)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 'var(--radius-sm)',
+              padding: '9px 14px',
+              color: 'var(--text-secondary)',
+              fontSize: '0.78rem',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
+              transition: 'border-color 0.15s ease, color 0.15s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'var(--border-hover)'
+              e.currentTarget.style.color = 'var(--text-primary)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'var(--border-subtle)'
+              e.currentTarget.style.color = 'var(--text-secondary)'
+            }}
+          >
+            <span>{showAllCategories ? 'SHOWING ALL 15 CATEGORIES' : '15-CATEGORY AUDIT'}</span>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              style={{
+                transform: showAllCategories ? 'rotate(180deg)' : 'none',
+                transition: 'transform 0.2s ease',
+              }}
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        </div>
 
         {/* New Upload Button */}
         <button
           onClick={onNewUpload}
           style={{
-            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+            background: 'var(--accent-gradient)',
             border: 'none',
-            borderRadius: 10,
+            borderRadius: 'var(--radius-sm)',
             padding: '9px 18px',
             color: '#ffffff',
             fontSize: '0.84rem',
-            fontWeight: 700,
+            fontWeight: 600,
             display: 'flex',
             alignItems: 'center',
             gap: 8,
             cursor: 'pointer',
-            boxShadow: '0 4px 16px rgba(139, 92, 246, 0.35)',
-            transition: 'transform 0.1s ease',
+            boxShadow: '0 2px 10px rgba(120, 101, 255, 0.35)',
+            transition: 'opacity 0.15s ease, transform 0.1s ease',
           }}
-          onMouseDown={e => { e.currentTarget.style.transform = 'scale(0.97)'; }}
+          onMouseEnter={e => { e.currentTarget.style.opacity = '0.92'; }}
+          onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}
+          onMouseDown={e => { e.currentTarget.style.transform = 'scale(0.98)'; }}
           onMouseUp={e => { e.currentTarget.style.transform = 'scale(1)'; }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="17 8 12 3 7 8" />
             <line x1="12" y1="3" x2="12" y2="15" />

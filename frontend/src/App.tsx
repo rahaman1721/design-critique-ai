@@ -9,6 +9,7 @@ import CategoryBreakdownGrid from './components/CategoryBreakdownGrid'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('audit')
+  const [showAllCategories, setShowAllCategories] = useState(false)
   const [state, setState] = useState<AppState>({ phase: 'idle' })
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -97,7 +98,7 @@ export default function App() {
             } else if (ev.event === 'error') {
               setState({ phase: 'error', message: ev.message })
             }
-          } catch { /* ignore JSON chunk errors */ }
+          } catch { /* ignore JSON stream parse chunks */ }
         }
       }
     } catch (e: unknown) {
@@ -116,7 +117,7 @@ export default function App() {
     if (file) handleFile(file)
   }
 
-  // Extract current critique data
+  // Extract dynamic critique data
   const currentHeader = state.phase === 'streaming' || state.phase === 'done' ? state.header : null
   const currentCategories = state.phase === 'streaming' || state.phase === 'done' ? state.categories : []
   const currentFixes = state.phase === 'streaming' || state.phase === 'done' ? state.fixes : []
@@ -126,7 +127,7 @@ export default function App() {
       display: 'flex',
       height: '100vh',
       width: '100vw',
-      background: 'radial-gradient(ellipse at 80% 10%, rgba(30, 20, 60, 0.4) 0%, #07080e 70%)',
+      background: 'radial-gradient(ellipse at 85% 15%, rgba(120, 101, 255, 0.07) 0%, var(--bg-primary) 65%)',
       overflow: 'hidden',
     }}>
       {/* Hidden File Input */}
@@ -141,7 +142,7 @@ export default function App() {
       {/* Left Sidebar */}
       <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
-      {/* Main Content Area */}
+      {/* Main Workspace */}
       <main style={{
         flex: 1,
         display: 'flex',
@@ -151,9 +152,44 @@ export default function App() {
         height: '100%',
       }}>
         {/* Top Header */}
-        <TopHeader onNewUpload={triggerFileUpload} />
+        <TopHeader
+          onNewUpload={triggerFileUpload}
+          showAllCategories={showAllCategories}
+          onToggleCategories={() => setShowAllCategories(prev => !prev)}
+        />
 
-        {/* Two-Column Audit Grid */}
+        {/* Processing Indicator if actively analyzing */}
+        {state.phase === 'analyzing' && (
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(120, 101, 255, 0.15) 0%, rgba(78, 139, 255, 0.1) 100%)',
+            border: '1px solid rgba(120, 101, 255, 0.3)',
+            borderRadius: 'var(--radius-sm)',
+            padding: '10px 16px',
+            marginBottom: 20,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            fontSize: '0.82rem',
+            color: 'var(--text-primary)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{
+                width: 14,
+                height: 14,
+                border: '2px solid rgba(255,255,255,0.2)',
+                borderTopColor: 'var(--accent-primary)',
+                borderRadius: '50%',
+                animation: 'spin 0.8s linear infinite',
+              }} />
+              <span>Gemini Vision is analyzing the uploaded design across 15 categories…</span>
+            </div>
+            <span style={{ color: 'var(--text-muted)', fontSize: '0.74rem' }}>
+              {(state as { tokens: number }).tokens} tokens processed
+            </span>
+          </div>
+        )}
+
+        {/* Two-Column Audit Layout */}
         <div style={{
           display: 'flex',
           gap: 24,
@@ -165,18 +201,18 @@ export default function App() {
             onTriggerUpload={triggerFileUpload}
           />
 
-          {/* Column 2: Health Score, Priority Fixes & Breakdown */}
+          {/* Column 2: Health Score, Priority Fixes & Category Breakdown */}
           <div style={{
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            gap: 20,
+            gap: 22,
             minWidth: 0,
           }}>
             {/* Health Score Card */}
             <HealthScoreCard
-              score={currentHeader?.overall_score ?? 94}
-              grade={currentHeader?.overall_grade ?? 'A'}
+              score={currentHeader?.overall_score ?? 84}
+              grade={currentHeader?.overall_grade ?? 'A-'}
               summary={currentHeader?.summary ?? "Your design follows modern UI principles with excellent visual hierarchy, clarity and usability. A few improvements can make it truly outstanding."}
             />
 
@@ -184,7 +220,10 @@ export default function App() {
             <PriorityFixesCard fixes={currentFixes} />
 
             {/* Category Breakdown Grid */}
-            <CategoryBreakdownGrid categories={currentCategories} />
+            <CategoryBreakdownGrid
+              categories={currentCategories}
+              showAll={showAllCategories}
+            />
           </div>
         </div>
       </main>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { PriorityFix } from '../types'
 
 interface PriorityFixesCardProps {
@@ -10,38 +11,51 @@ const DEFAULT_FIXES = [
     title: 'Increase secondary text contrast on metadata timestamps',
     description: 'The timestamp text (#71717a) has WCAG 2.1 AA 4.5:1 minimum contrast requirement.',
     impact: 'High',
-    color: '#ef4444',
+    color: 'var(--error)',
+    badgeBg: 'var(--error-bg)',
+    badgeBorder: 'var(--error-border)',
   },
   {
     priority: 2,
     title: 'Expand interactive touch target hit area',
     description: 'Corner icon buttons measure 22×32px. Expand padding for at least 44×44px touch targets.',
     impact: 'Medium',
-    color: '#f59e0b',
+    color: 'var(--warning)',
+    badgeBg: 'var(--warning-bg)',
+    badgeBorder: 'var(--warning-border)',
   },
   {
     priority: 3,
     title: 'Add keyboard focus outlines for modal controls',
     description: 'Ensure all interactive elements have a visible focus state.',
     impact: 'Medium',
-    color: '#f59e0b',
+    color: 'var(--warning)',
+    badgeBg: 'var(--warning-bg)',
+    badgeBorder: 'var(--warning-border)',
   },
 ]
 
 export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
-  const displayFixes = fixes && fixes.length > 0
-    ? fixes.map(f => ({
-        priority: f.priority,
-        title: f.title,
-        description: f.description,
-        impact: f.impact === 'high' ? 'High' : 'Medium',
-        color: f.impact === 'high' ? '#ef4444' : '#f59e0b',
-      }))
+  const [expandedId, setExpandedId] = useState<number | null>(null)
+
+  const items = fixes && fixes.length > 0
+    ? fixes.map(f => {
+        const isHigh = f.impact === 'high'
+        return {
+          priority: f.priority,
+          title: f.title,
+          description: f.description,
+          impact: isHigh ? 'High' : 'Medium',
+          color: isHigh ? 'var(--error)' : 'var(--warning)',
+          badgeBg: isHigh ? 'var(--error-bg)' : 'var(--warning-bg)',
+          badgeBorder: isHigh ? 'var(--error-border)' : 'var(--warning-border)',
+        }
+      })
     : DEFAULT_FIXES
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      {/* Header */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {/* Section Header */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -49,100 +63,156 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
         padding: '0 2px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ color: '#f59e0b', fontSize: '1rem' }}>⚡</span>
-          <span style={{ fontSize: '0.92rem', fontWeight: 700, color: '#ffffff' }}>
-            Priority Fixes ({displayFixes.length} Identified)
-          </span>
+          <span style={{ color: 'var(--warning)', fontSize: '0.95rem' }}>⚡</span>
+          <h3 style={{
+            fontSize: '0.92rem',
+            fontWeight: 700,
+            color: 'var(--text-primary)',
+            letterSpacing: '-0.01em',
+          }}>
+            Priority Fixes ({items.length} Identified)
+          </h3>
         </div>
 
         <button style={{
           background: 'none',
           border: 'none',
-          color: '#818cf8',
+          color: 'var(--accent-primary)',
           fontSize: '0.8rem',
           fontWeight: 600,
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           gap: 4,
-        }}>
+          padding: 0,
+          transition: 'color 0.15s ease',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent-secondary)'; }}
+        onMouseLeave={e => { e.currentTarget.style.color = 'var(--accent-primary)'; }}
+        >
           View All →
         </button>
       </div>
 
-      {/* Fix Rows */}
+      {/* Issues List */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {displayFixes.map(fix => (
-          <div
-            key={fix.priority}
-            style={{
-              background: '#0d0f1a',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-              borderRadius: 14,
-              padding: '12px 18px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 16,
-              cursor: 'pointer',
-              transition: 'background 0.15s, border-color 0.15s',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = '#111422'
-              e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = '#0d0f1a'
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)'
-            }}
-          >
-            {/* Left Content */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1 }}>
-              {/* Number Circle */}
+        {items.map(fix => {
+          const isExpanded = expandedId === fix.priority
+
+          return (
+            <div
+              key={fix.priority}
+              onClick={() => setExpandedId(isExpanded ? null : fix.priority)}
+              style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
+                borderRadius: 'var(--radius-md)',
+                padding: '12px 18px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 8,
+                cursor: 'pointer',
+                transition: 'background 0.15s ease, border-color 0.15s ease',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'var(--bg-elevated)'
+                e.currentTarget.style.borderColor = 'var(--border-hover)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'var(--bg-card)'
+                e.currentTarget.style.borderColor = 'var(--border-subtle)'
+              }}
+            >
+              {/* Row Content */}
               <div style={{
-                width: 24,
-                height: 24,
-                borderRadius: '50%',
-                background: fix.color,
-                color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '0.74rem',
-                fontWeight: 800,
-                flexShrink: 0,
+                justifyContent: 'space-between',
+                gap: 16,
               }}>
-                {fix.priority}
+                {/* Left Number & Copy */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1, minWidth: 0 }}>
+                  {/* Number Badge */}
+                  <div style={{
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    background: fix.color,
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '0.72rem',
+                    fontWeight: 800,
+                    flexShrink: 0,
+                  }}>
+                    {fix.priority}
+                  </div>
+
+                  {/* Title & One-Liner */}
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{
+                      fontSize: '0.86rem',
+                      fontWeight: 600,
+                      color: 'var(--text-primary)',
+                      lineHeight: 1.35,
+                      marginBottom: 2,
+                    }}>
+                      {fix.title}
+                    </div>
+                    <div style={{
+                      fontSize: '0.76rem',
+                      color: 'var(--text-muted)',
+                      lineHeight: 1.4,
+                      whiteSpace: isExpanded ? 'normal' : 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                      {fix.description}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Severity Badge & Chevron */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+                  <span style={{
+                    fontSize: '0.68rem',
+                    fontWeight: 700,
+                    padding: '2px 9px',
+                    borderRadius: 20,
+                    background: fix.badgeBg,
+                    color: fix.color,
+                    border: `1px solid ${fix.badgeBorder}`,
+                    letterSpacing: '0.02em',
+                  }}>
+                    {fix.impact}
+                  </span>
+                  <span style={{
+                    color: 'var(--text-muted)',
+                    fontSize: '0.85rem',
+                    transform: isExpanded ? 'rotate(90deg)' : 'none',
+                    transition: 'transform 0.15s ease',
+                  }}>
+                    ›
+                  </span>
+                </div>
               </div>
 
-              {/* Title & Subtitle */}
-              <div>
-                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#f8fafc', marginBottom: 2 }}>
-                  {fix.title}
+              {/* Expanded Actionable Guide if Clicked */}
+              {isExpanded && (
+                <div style={{
+                  paddingTop: 8,
+                  borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                  fontSize: '0.76rem',
+                  color: 'var(--text-secondary)',
+                  lineHeight: 1.5,
+                }}>
+                  <strong style={{ color: 'var(--text-primary)' }}>Recommended Fix:</strong> Update component token styles to adhere to WCAG 2.1 AA accessibility guidelines. Test on mobile viewports for minimum 44×44px hit bounds.
                 </div>
-                <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
-                  {fix.description}
-                </div>
-              </div>
+              )}
             </div>
-
-            {/* Right Badge & Chevron */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-              <span style={{
-                fontSize: '0.68rem',
-                fontWeight: 700,
-                padding: '2px 10px',
-                borderRadius: 20,
-                background: fix.impact === 'High' ? 'rgba(239, 68, 68, 0.18)' : 'rgba(245, 158, 11, 0.18)',
-                color: fix.color,
-                border: `1px solid ${fix.color}40`,
-              }}>
-                {fix.impact}
-              </span>
-              <span style={{ color: '#64748b', fontSize: '0.9rem' }}>›</span>
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

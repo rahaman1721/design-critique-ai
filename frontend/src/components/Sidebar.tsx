@@ -1,18 +1,17 @@
-import { useState } from 'react'
-
 interface SidebarProps {
   activeTab: string
   onTabChange: (tab: string) => void
 }
 
 export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
-  const [navItems] = useState([
+  const navItems = [
     {
       id: 'audit',
       label: 'Audit',
       icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 3v18h18" />
+          <path d="m19 9-5 5-4-4-3 3" />
         </svg>
       ),
     },
@@ -31,7 +30,9 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       label: 'Templates',
       icon: (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <path d="M3 9h18" />
+          <path d="M9 21V9" />
         </svg>
       ),
     },
@@ -40,63 +41,70 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       label: 'Settings',
       icon: (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
           <circle cx="12" cy="12" r="3" />
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
         </svg>
       ),
     },
-  ])
+  ]
 
   return (
     <aside style={{
-      width: 230,
-      background: 'linear-gradient(180deg, #090a14 0%, #06070c 100%)',
-      borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+      width: 240,
+      background: 'var(--bg-sidebar)',
+      borderRight: '1px solid var(--border-subtle)',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
       padding: '24px 16px',
       flexShrink: 0,
       height: '100%',
+      userSelect: 'none',
     }}>
-      {/* Top Section */}
+      {/* Brand Header & Navigation */}
       <div>
-        {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 8px 30px' }}>
+        {/* Brand Logo & Name */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 8px 28px' }}>
           <div style={{
-            width: 36,
-            height: 36,
-            borderRadius: 10,
-            background: 'linear-gradient(135deg, #a855f7 0%, #6366f1 100%)',
+            width: 32,
+            height: 32,
+            borderRadius: 8,
+            background: 'var(--accent-gradient)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 16px rgba(168, 85, 247, 0.4)',
+            boxShadow: '0 2px 10px rgba(120, 101, 255, 0.35)',
+            flexShrink: 0,
           }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
               <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
             </svg>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontWeight: 800, fontSize: '0.98rem', letterSpacing: '-0.02em', color: '#fff' }}>
+            <span style={{
+              fontWeight: 700,
+              fontSize: '0.94rem',
+              letterSpacing: '-0.02em',
+              color: 'var(--text-primary)',
+            }}>
               Design Critique AI
             </span>
             <span style={{
-              fontSize: '0.65rem',
+              fontSize: '0.62rem',
               fontWeight: 700,
-              background: 'rgba(255, 255, 255, 0.08)',
-              color: '#94a3b8',
-              padding: '1px 6px',
-              borderRadius: 6,
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'rgba(255, 255, 255, 0.06)',
+              color: 'var(--text-muted)',
+              padding: '1px 5px',
+              borderRadius: 4,
+              border: '1px solid var(--border-subtle)',
             }}>
               v2.0
             </span>
           </div>
         </div>
 
-        {/* Navigation list */}
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {/* Navigation Items */}
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           {navItems.map(item => {
             const isActive = activeTab === item.id
             return (
@@ -107,22 +115,33 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 12,
-                  padding: '12px 14px',
-                  borderRadius: 12,
-                  border: isActive ? '1px solid rgba(139, 92, 246, 0.4)' : '1px solid transparent',
+                  padding: '10px 14px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: isActive ? '1px solid rgba(120, 101, 255, 0.3)' : '1px solid transparent',
                   background: isActive
-                    ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%)'
+                    ? 'linear-gradient(135deg, rgba(120, 101, 255, 0.16) 0%, rgba(78, 139, 255, 0.08) 100%)'
                     : 'transparent',
-                  color: isActive ? '#fff' : '#64748b',
-                  fontSize: '0.9rem',
+                  color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
+                  fontSize: '0.88rem',
                   fontWeight: isActive ? 600 : 500,
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  boxShadow: isActive ? '0 0 20px rgba(99, 102, 241, 0.2)' : 'none',
+                }}
+                onMouseEnter={e => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)'
+                    e.currentTarget.style.color = 'var(--text-primary)'
+                  }
+                }}
+                onMouseLeave={e => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent'
+                    e.currentTarget.style.color = 'var(--text-muted)'
+                  }
                 }}
               >
-                <span style={{ color: isActive ? '#a855f7' : '#64748b' }}>
+                <span style={{ color: isActive ? 'var(--accent-primary)' : 'inherit', display: 'flex' }}>
                   {item.icon}
                 </span>
                 <span>{item.label}</span>
@@ -132,36 +151,36 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
         </nav>
       </div>
 
-      {/* Bottom Promo & Profile */}
+      {/* Bottom Upgrade Box & Profile */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {/* Promo Card */}
+        {/* Subtle Luxury Upgrade Card */}
         <div style={{
           position: 'relative',
-          background: 'linear-gradient(145deg, rgba(20, 24, 40, 0.7) 0%, rgba(10, 12, 22, 0.9) 100%)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: 16,
-          padding: '18px 16px',
+          background: 'linear-gradient(180deg, rgba(20, 27, 48, 0.6) 0%, rgba(16, 22, 41, 0.9) 100%)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: 'var(--radius-md)',
+          padding: '16px',
           overflow: 'hidden',
         }}>
-          {/* Glowing purple 3D flower / sphere abstract element */}
+          {/* Subtle Ambient Aurora Light */}
           <div style={{
             position: 'absolute',
-            bottom: -15,
-            right: -15,
-            width: 80,
-            height: 80,
+            bottom: -20,
+            right: -20,
+            width: 90,
+            height: 90,
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, rgba(59, 130, 246, 0.2) 60%, transparent 100%)',
-            filter: 'blur(8px)',
+            background: 'radial-gradient(circle, rgba(120, 101, 255, 0.25) 0%, transparent 70%)',
+            filter: 'blur(10px)',
             pointerEvents: 'none',
           }} />
 
           <p style={{
-            fontSize: '0.84rem',
-            fontWeight: 700,
-            color: '#fff',
-            lineHeight: 1.4,
-            marginBottom: 14,
+            fontSize: '0.82rem',
+            fontWeight: 600,
+            color: 'var(--text-primary)',
+            lineHeight: 1.45,
+            marginBottom: 12,
             position: 'relative',
             zIndex: 1,
           }}>
@@ -169,58 +188,67 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
           </p>
 
           <button style={{
-            background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+            background: 'var(--accent-gradient)',
             border: 'none',
-            borderRadius: 8,
-            padding: '7px 14px',
-            color: '#fff',
+            borderRadius: 'var(--radius-sm)',
+            padding: '7px 12px',
+            color: '#ffffff',
             fontSize: '0.78rem',
             fontWeight: 600,
             cursor: 'pointer',
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: 6,
             position: 'relative',
             zIndex: 1,
-            boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)',
-          }}>
+            boxShadow: '0 2px 8px rgba(120, 101, 255, 0.3)',
+            transition: 'opacity 0.15s ease',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; }}
+          onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}
+          >
             Upgrade →
           </button>
         </div>
 
-        {/* User Pill */}
+        {/* User Profile Area */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: '8px 10px',
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          borderRadius: 12,
-        }}>
+          background: 'rgba(255, 255, 255, 0.02)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: 'var(--radius-md)',
+          cursor: 'pointer',
+          transition: 'border-color 0.15s ease',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; }}
+        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {/* Obi Avatar */}
+            {/* User Avatar */}
             <div style={{
-              width: 32,
-              height: 32,
+              width: 30,
+              height: 30,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #7865FF 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.78rem',
+              fontSize: '0.74rem',
               fontWeight: 700,
-              color: '#fff',
+              color: '#ffffff',
               border: '1px solid rgba(255, 255, 255, 0.2)',
             }}>
               Obi
             </div>
             <div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#fff' }}>Obi</div>
-              <div style={{ fontSize: '0.7rem', color: '#60a5fa', fontWeight: 500 }}>Pro Plan</div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-primary)' }}>Obi</div>
+              <div style={{ fontSize: '0.7rem', color: 'var(--accent-secondary)', fontWeight: 500 }}>Pro Plan</div>
             </div>
           </div>
-          <span style={{ color: '#64748b', fontSize: '0.85rem' }}>›</span>
+          <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>›</span>
         </div>
       </div>
     </aside>
