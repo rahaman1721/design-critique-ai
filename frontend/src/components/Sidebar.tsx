@@ -1,17 +1,21 @@
+import logoStar from '../assets/logo_star_clean.png'
+import flowerCrop from '../assets/flower_crop_transparent.png'
+import obiAvatar from '../assets/obi_crop.png'
+
 interface SidebarProps {
   activeTab: string
   onTabChange: (tab: string) => void
+  onUpgradeClick?: () => void
 }
 
-export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
+export default function Sidebar({ activeTab, onTabChange, onUpgradeClick }: SidebarProps) {
   const navItems = [
     {
       id: 'audit',
       label: 'Audit',
       icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 3v18h18" />
-          <path d="m19 9-5 5-4-4-3 3" />
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         </svg>
       ),
     },
@@ -19,7 +23,7 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       id: 'history',
       label: 'History',
       icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10" />
           <polyline points="12 6 12 12 16 14" />
         </svg>
@@ -29,10 +33,8 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       id: 'templates',
       label: 'Templates',
       icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <rect width="18" height="18" x="3" y="3" rx="2" />
-          <path d="M3 9h18" />
-          <path d="M9 21V9" />
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
         </svg>
       ),
     },
@@ -40,9 +42,9 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       id: 'settings',
       label: 'Settings',
       icon: (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
         </svg>
       ),
     },
@@ -50,9 +52,9 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
 
   return (
     <aside style={{
-      width: 240,
-      background: 'var(--bg-sidebar)',
-      borderRight: '1px solid var(--border-subtle)',
+      width: 220,
+      background: '#070814',
+      borderRight: '1px solid rgba(255, 255, 255, 0.06)',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -60,51 +62,48 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       flexShrink: 0,
       height: '100%',
       userSelect: 'none',
+      zIndex: 20,
     }}>
-      {/* Brand Header & Navigation */}
+      {/* Top Brand Logo & Navigation */}
       <div>
-        {/* Brand Logo & Name */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 8px 28px' }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: 'var(--accent-gradient)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 2px 10px rgba(120, 101, 255, 0.35)',
-            flexShrink: 0,
-          }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
-              <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
-            </svg>
-          </div>
+        {/* Brand Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '0 4px 28px' }}>
+          <img
+            src={logoStar}
+            alt="Logo Star"
+            style={{
+              width: 30,
+              height: 30,
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 0 12px rgba(120, 101, 255, 0.6))',
+            }}
+          />
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: '0.94rem',
               letterSpacing: '-0.02em',
-              color: 'var(--text-primary)',
+              color: '#ffffff',
+              lineHeight: 1.2,
             }}>
               Design Critique AI
             </span>
             <span style={{
               fontSize: '0.62rem',
               fontWeight: 700,
-              background: 'rgba(255, 255, 255, 0.06)',
-              color: 'var(--text-muted)',
+              background: 'rgba(255, 255, 255, 0.08)',
+              color: '#94a3b8',
               padding: '1px 5px',
               borderRadius: 4,
-              border: '1px solid var(--border-subtle)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
             }}>
               v2.0
             </span>
           </div>
         </div>
 
-        {/* Navigation Items */}
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {/* Navigation list */}
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {navItems.map(item => {
             const isActive = activeTab === item.id
             return (
@@ -116,32 +115,44 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
                   alignItems: 'center',
                   gap: 12,
                   padding: '10px 14px',
-                  borderRadius: 'var(--radius-sm)',
-                  border: isActive ? '1px solid rgba(120, 101, 255, 0.3)' : '1px solid transparent',
+                  borderRadius: 14,
+                  border: isActive ? '1px solid rgba(147, 197, 253, 0.35)' : '1px solid transparent',
                   background: isActive
-                    ? 'linear-gradient(135deg, rgba(120, 101, 255, 0.16) 0%, rgba(78, 139, 255, 0.08) 100%)'
+                    ? 'linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #4338ca 100%)'
                     : 'transparent',
-                  color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
-                  fontSize: '0.88rem',
-                  fontWeight: isActive ? 600 : 500,
+                  color: isActive ? '#ffffff' : '#94a3b8',
+                  fontSize: '0.86rem',
+                  fontWeight: isActive ? 700 : 500,
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
+                  boxShadow: isActive
+                    ? 'inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 18px rgba(59, 130, 246, 0.45)'
+                    : 'none',
                 }}
                 onMouseEnter={e => {
                   if (!isActive) {
                     e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)'
-                    e.currentTarget.style.color = 'var(--text-primary)'
+                    e.currentTarget.style.color = '#ffffff'
                   }
                 }}
                 onMouseLeave={e => {
                   if (!isActive) {
                     e.currentTarget.style.background = 'transparent'
-                    e.currentTarget.style.color = 'var(--text-muted)'
+                    e.currentTarget.style.color = '#94a3b8'
                   }
                 }}
               >
-                <span style={{ color: isActive ? 'var(--accent-primary)' : 'inherit', display: 'flex' }}>
+                <span style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 22,
+                  height: 22,
+                  borderRadius: 6,
+                  background: isActive ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
+                  color: isActive ? '#ffffff' : 'inherit',
+                }}>
                   {item.icon}
                 </span>
                 <span>{item.label}</span>
@@ -151,104 +162,140 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
         </nav>
       </div>
 
-      {/* Bottom Upgrade Box & Profile */}
+      {/* Bottom Upgrade Card & User Profile */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        {/* Subtle Luxury Upgrade Card */}
+        {/* Real Authentic Upgrade Card Matching Reference */}
         <div style={{
           position: 'relative',
-          background: 'linear-gradient(180deg, rgba(20, 27, 48, 0.6) 0%, rgba(16, 22, 41, 0.9) 100%)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-md)',
-          padding: '16px',
+          background: 'linear-gradient(145deg, #101428 0%, #0a0d1c 100%)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          borderRadius: 16,
+          padding: '16px 14px',
           overflow: 'hidden',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.35)',
         }}>
-          {/* Subtle Ambient Aurora Light */}
-          <div style={{
-            position: 'absolute',
-            bottom: -20,
-            right: -20,
-            width: 90,
-            height: 90,
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(120, 101, 255, 0.25) 0%, transparent 70%)',
-            filter: 'blur(10px)',
-            pointerEvents: 'none',
-          }} />
+          {/* Authentic 3D Crystal Flower Asset from Reference */}
+          <img
+            src={flowerCrop}
+            alt="3D Crystal Violet Flower"
+            style={{
+              position: 'absolute',
+              right: 0,
+              bottom: 0,
+              width: 90,
+              height: 90,
+              objectFit: 'contain',
+              pointerEvents: 'none',
+              filter: 'drop-shadow(0 0 16px rgba(120, 101, 255, 0.4))',
+            }}
+          />
 
-          <p style={{
-            fontSize: '0.82rem',
-            fontWeight: 600,
-            color: 'var(--text-primary)',
-            lineHeight: 1.45,
-            marginBottom: 12,
-            position: 'relative',
-            zIndex: 1,
-          }}>
-            Create better designs, faster.
-          </p>
+          {/* Clean Typography on Top Left */}
+          <div style={{ position: 'relative', zIndex: 2 }}>
+            <p style={{
+              fontSize: '0.86rem',
+              fontWeight: 700,
+              color: '#ffffff',
+              lineHeight: 1.35,
+              marginBottom: 16,
+              maxWidth: 120,
+            }}>
+              Create better<br />designs, faster.
+            </p>
 
-          <button style={{
-            background: 'var(--accent-gradient)',
-            border: 'none',
-            borderRadius: 'var(--radius-sm)',
-            padding: '7px 12px',
-            color: '#ffffff',
-            fontSize: '0.78rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            position: 'relative',
-            zIndex: 1,
-            boxShadow: '0 2px 8px rgba(120, 101, 255, 0.3)',
-            transition: 'opacity 0.15s ease',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; }}
-          onMouseLeave={e => { e.currentTarget.style.opacity = '1'; }}
-          >
-            Upgrade →
-          </button>
+            <button
+              onClick={onUpgradeClick}
+              style={{
+                background: '#7865FF',
+                border: 'none',
+                borderRadius: 9999,
+                padding: '6px 16px',
+                color: '#ffffff',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                boxShadow: '0 4px 14px rgba(120, 101, 255, 0.45)',
+                transition: 'transform 0.1s ease, background 0.15s ease',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#6853ff'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#7865FF'; }}
+              onMouseDown={e => { e.currentTarget.style.transform = 'scale(0.97)'; }}
+              onMouseUp={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+            >
+              Upgrade →
+            </button>
+          </div>
         </div>
 
-        {/* User Profile Area */}
+        {/* Obi User Profile Pill Matching Reference */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '8px 10px',
+          padding: '8px 12px',
           background: 'rgba(255, 255, 255, 0.02)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-md)',
+          border: '1px solid rgba(255, 255, 255, 0.06)',
+          borderRadius: 14,
           cursor: 'pointer',
-          transition: 'border-color 0.15s ease',
+          transition: 'background 0.15s ease',
         }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; }}
-        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+        onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)'; }}
+        onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)'; }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {/* User Avatar */}
+            {/* Obi Avatar with Online Dot */}
             <div style={{
-              width: 30,
-              height: 30,
+              position: 'relative',
+              width: 32,
+              height: 32,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, #3b82f6 0%, #7865FF 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '0.74rem',
-              fontWeight: 700,
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              overflow: 'visible',
+              flexShrink: 0,
             }}>
-              Obi
+              <img
+                src={obiAvatar}
+                alt="Obi"
+                style={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                }}
+              />
+              {/* Online indicator */}
+              <span style={{
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: '#16C995',
+                border: '1.5px solid #070814',
+              }} />
             </div>
+
             <div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-primary)' }}>Obi</div>
-              <div style={{ fontSize: '0.7rem', color: 'var(--accent-secondary)', fontWeight: 500 }}>Pro Plan</div>
+              <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#ffffff', lineHeight: 1.2 }}>Obi</div>
+              <div style={{
+                display: 'inline-block',
+                fontSize: '0.64rem',
+                fontWeight: 700,
+                color: '#c7d2fe',
+                background: '#3b2a6b',
+                padding: '1px 6px',
+                borderRadius: 9999,
+                marginTop: 2,
+              }}>
+                Pro Plan
+              </div>
             </div>
           </div>
-          <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>›</span>
+          <span style={{ color: '#64748b', fontSize: '0.9rem' }}>›</span>
         </div>
       </div>
     </aside>

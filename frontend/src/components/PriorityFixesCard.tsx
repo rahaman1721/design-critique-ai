@@ -3,6 +3,7 @@ import type { PriorityFix } from '../types'
 
 interface PriorityFixesCardProps {
   fixes?: PriorityFix[]
+  onViewAll?: () => void
 }
 
 const DEFAULT_FIXES = [
@@ -11,31 +12,31 @@ const DEFAULT_FIXES = [
     title: 'Increase secondary text contrast on metadata timestamps',
     description: 'The timestamp text (#71717a) has WCAG 2.1 AA 4.5:1 minimum contrast requirement.',
     impact: 'High',
-    color: 'var(--error)',
-    badgeBg: 'var(--error-bg)',
-    badgeBorder: 'var(--error-border)',
+    color: '#F05B73',
+    badgeBg: 'rgba(240, 91, 115, 0.15)',
+    badgeBorder: 'rgba(240, 91, 115, 0.3)',
   },
   {
     priority: 2,
     title: 'Expand interactive touch target hit area',
     description: 'Corner icon buttons measure 22×32px. Expand padding for at least 44×44px touch targets.',
     impact: 'Medium',
-    color: 'var(--warning)',
-    badgeBg: 'var(--warning-bg)',
-    badgeBorder: 'var(--warning-border)',
+    color: '#F5AE42',
+    badgeBg: 'rgba(245, 174, 66, 0.15)',
+    badgeBorder: 'rgba(245, 174, 66, 0.3)',
   },
   {
     priority: 3,
     title: 'Add keyboard focus outlines for modal controls',
     description: 'Ensure all interactive elements have a visible focus state.',
     impact: 'Medium',
-    color: 'var(--warning)',
-    badgeBg: 'var(--warning-bg)',
-    badgeBorder: 'var(--warning-border)',
+    color: '#F5AE42',
+    badgeBg: 'rgba(245, 174, 66, 0.15)',
+    badgeBorder: 'rgba(245, 174, 66, 0.3)',
   },
 ]
 
-export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
+export default function PriorityFixesCard({ fixes, onViewAll }: PriorityFixesCardProps) {
   const [expandedId, setExpandedId] = useState<number | null>(null)
 
   const items = fixes && fixes.length > 0
@@ -46,9 +47,9 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
           title: f.title,
           description: f.description,
           impact: isHigh ? 'High' : 'Medium',
-          color: isHigh ? 'var(--error)' : 'var(--warning)',
-          badgeBg: isHigh ? 'var(--error-bg)' : 'var(--warning-bg)',
-          badgeBorder: isHigh ? 'var(--error-border)' : 'var(--warning-border)',
+          color: isHigh ? '#F05B73' : '#F5AE42',
+          badgeBg: isHigh ? 'rgba(240, 91, 115, 0.15)' : 'rgba(245, 174, 66, 0.15)',
+          badgeBorder: isHigh ? 'rgba(240, 91, 115, 0.3)' : 'rgba(245, 174, 66, 0.3)',
         }
       })
     : DEFAULT_FIXES
@@ -63,32 +64,34 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
         padding: '0 2px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ color: 'var(--warning)', fontSize: '0.95rem' }}>⚡</span>
+          <span style={{ color: '#F5AE42', fontSize: '0.95rem' }}>⚡</span>
           <h3 style={{
             fontSize: '0.92rem',
             fontWeight: 700,
-            color: 'var(--text-primary)',
+            color: '#ffffff',
             letterSpacing: '-0.01em',
           }}>
             Priority Fixes ({items.length} Identified)
           </h3>
         </div>
 
-        <button style={{
-          background: 'none',
-          border: 'none',
-          color: 'var(--accent-primary)',
-          fontSize: '0.8rem',
-          fontWeight: 600,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 4,
-          padding: 0,
-          transition: 'color 0.15s ease',
-        }}
-        onMouseEnter={e => { e.currentTarget.style.color = 'var(--accent-secondary)'; }}
-        onMouseLeave={e => { e.currentTarget.style.color = 'var(--accent-primary)'; }}
+        <button
+          onClick={onViewAll}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#7865FF',
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+            padding: 0,
+            transition: 'color 0.15s ease',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#a594ff'; }}
+          onMouseLeave={e => { e.currentTarget.style.color = '#7865FF'; }}
         >
           View All →
         </button>
@@ -104,9 +107,9 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
               key={fix.priority}
               onClick={() => setExpandedId(isExpanded ? null : fix.priority)}
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: 'var(--radius-md)',
+                background: '#0c0e1e',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                borderRadius: 14,
                 padding: '12px 18px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -115,12 +118,12 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
                 transition: 'background 0.15s ease, border-color 0.15s ease',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'var(--bg-elevated)'
-                e.currentTarget.style.borderColor = 'var(--border-hover)'
+                e.currentTarget.style.background = '#12172f'
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.14)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'var(--bg-card)'
-                e.currentTarget.style.borderColor = 'var(--border-subtle)'
+                e.currentTarget.style.background = '#0c0e1e'
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)'
               }}
             >
               {/* Row Content */}
@@ -154,7 +157,7 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
                     <div style={{
                       fontSize: '0.86rem',
                       fontWeight: 600,
-                      color: 'var(--text-primary)',
+                      color: '#ffffff',
                       lineHeight: 1.35,
                       marginBottom: 2,
                     }}>
@@ -162,7 +165,7 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
                     </div>
                     <div style={{
                       fontSize: '0.76rem',
-                      color: 'var(--text-muted)',
+                      color: '#6D7690',
                       lineHeight: 1.4,
                       whiteSpace: isExpanded ? 'normal' : 'nowrap',
                       overflow: 'hidden',
@@ -188,7 +191,7 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
                     {fix.impact}
                   </span>
                   <span style={{
-                    color: 'var(--text-muted)',
+                    color: '#6D7690',
                     fontSize: '0.85rem',
                     transform: isExpanded ? 'rotate(90deg)' : 'none',
                     transition: 'transform 0.15s ease',
@@ -204,10 +207,10 @@ export default function PriorityFixesCard({ fixes }: PriorityFixesCardProps) {
                   paddingTop: 8,
                   borderTop: '1px solid rgba(255, 255, 255, 0.05)',
                   fontSize: '0.76rem',
-                  color: 'var(--text-secondary)',
+                  color: '#A1AAC2',
                   lineHeight: 1.5,
                 }}>
-                  <strong style={{ color: 'var(--text-primary)' }}>Recommended Fix:</strong> Update component token styles to adhere to WCAG 2.1 AA accessibility guidelines. Test on mobile viewports for minimum 44×44px hit bounds.
+                  <strong style={{ color: '#ffffff' }}>Recommended Remediation:</strong> Adjust component token styles to adhere strictly to WCAG 2.1 AA accessibility guidelines. Test on mobile viewports for minimum 44×44px hit bounds and 4.5:1 text contrast ratios.
                 </div>
               )}
             </div>

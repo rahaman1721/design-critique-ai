@@ -303,9 +303,9 @@ export default function CategoryBreakdownGrid({ categories, showAll = false }: C
             <div
               key={idx}
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: 'var(--radius-md)',
+                background: '#090b17',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                borderRadius: 14,
                 padding: '16px',
                 display: 'flex',
                 flexDirection: 'column',

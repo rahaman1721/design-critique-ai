@@ -6,10 +6,23 @@ import UploadDesignCard from './components/UploadedDesignCard'
 import HealthScoreCard from './components/HealthScoreCard'
 import PriorityFixesCard from './components/PriorityFixesCard'
 import CategoryBreakdownGrid from './components/CategoryBreakdownGrid'
+import HistoryView from './components/HistoryView'
+import TemplatesView from './components/TemplatesView'
+import SettingsView from './components/SettingsView'
+import UpgradeModal from './components/UpgradeModal'
+import AuditDetailsModal from './components/AuditDetailsModal'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('audit')
   const [showAllCategories, setShowAllCategories] = useState(false)
+  const [upgradeModalOpen, setUpgradeModalOpen] = useState(false)
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false)
+
+  // Current critique states
+  const [score, setScore] = useState(94)
+  const [summary, setSummary] = useState(
+    "Your design follows modern UI principles with excellent visual hierarchy, clarity and usability. A few improvements can make it truly outstanding."
+  )
   const [state, setState] = useState<AppState>({ phase: 'idle' })
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
@@ -22,6 +35,7 @@ export default function App() {
 
     const previewUrl = URL.createObjectURL(file)
     setImageUrl(previewUrl)
+    setActiveTab('audit')
     setState({ phase: 'uploading' })
 
     const formData = new FormData()
@@ -71,6 +85,8 @@ export default function App() {
               setState({ phase: 'analyzing', tokens: ev.tokens })
             } else if (ev.event === 'header') {
               header = { overall_score: ev.overall_score, overall_grade: ev.overall_grade, summary: ev.summary }
+              setScore(ev.overall_score)
+              setSummary(ev.summary)
               setState({ phase: 'streaming', header, categories: [], fixes: [], highlights: [] })
             } else if (ev.event === 'category') {
               categories.push(ev.data)
@@ -117,8 +133,14 @@ export default function App() {
     if (file) handleFile(file)
   }
 
+  // Load audit from history or templates
+  const handleLoadAudit = (title: string, newScore: number, newSummary: string) => {
+    setScore(newScore)
+    setSummary(newSummary)
+    setActiveTab('audit')
+  }
+
   // Extract dynamic critique data
-  const currentHeader = state.phase === 'streaming' || state.phase === 'done' ? state.header : null
   const currentCategories = state.phase === 'streaming' || state.phase === 'done' ? state.categories : []
   const currentFixes = state.phase === 'streaming' || state.phase === 'done' ? state.fixes : []
 
@@ -127,9 +149,35 @@ export default function App() {
       display: 'flex',
       height: '100vh',
       width: '100vw',
-      background: 'radial-gradient(ellipse at 85% 15%, rgba(120, 101, 255, 0.07) 0%, var(--bg-primary) 65%)',
+      background: '#070916',
+      position: 'relative',
       overflow: 'hidden',
     }}>
+      {/* Authentic Ambient Atmospheric Aurora Lighting Layers */}
+      <div style={{
+        position: 'absolute',
+        top: -100,
+        right: -100,
+        width: 800,
+        height: 600,
+        background: 'radial-gradient(circle at 60% 30%, rgba(99, 102, 241, 0.15) 0%, rgba(120, 101, 255, 0.08) 45%, transparent 75%)',
+        filter: 'blur(60px)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
+      <div style={{
+        position: 'absolute',
+        bottom: -50,
+        left: 200,
+        width: 600,
+        height: 500,
+        background: 'radial-gradient(circle at 30% 70%, rgba(120, 101, 255, 0.07) 0%, transparent 70%)',
+        filter: 'blur(80px)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
       {/* Hidden File Input */}
       <input
         ref={fileInputRef}
@@ -140,7 +188,11 @@ export default function App() {
       />
 
       {/* Left Sidebar */}
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+      <Sidebar
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onUpgradeClick={() => setUpgradeModalOpen(true)}
+      />
 
       {/* Main Workspace */}
       <main style={{
@@ -150,6 +202,8 @@ export default function App() {
         padding: '24px 32px',
         overflow: 'hidden auto',
         height: '100%',
+        position: 'relative',
+        zIndex: 1,
       }}>
         {/* Top Header */}
         <TopHeader
@@ -163,70 +217,102 @@ export default function App() {
           <div style={{
             background: 'linear-gradient(135deg, rgba(120, 101, 255, 0.15) 0%, rgba(78, 139, 255, 0.1) 100%)',
             border: '1px solid rgba(120, 101, 255, 0.3)',
-            borderRadius: 'var(--radius-sm)',
+            borderRadius: 8,
             padding: '10px 16px',
             marginBottom: 20,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             fontSize: '0.82rem',
-            color: 'var(--text-primary)',
+            color: '#F5F6FF',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <div style={{
                 width: 14,
                 height: 14,
                 border: '2px solid rgba(255,255,255,0.2)',
-                borderTopColor: 'var(--accent-primary)',
+                borderTopColor: '#7865FF',
                 borderRadius: '50%',
                 animation: 'spin 0.8s linear infinite',
               }} />
-              <span>Gemini Vision is analyzing the uploaded design across 15 categories…</span>
+              <span>Gemini 2.0 Flash Vision is auditing uploaded design across 15 categories…</span>
             </div>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.74rem' }}>
-              {(state as { tokens: number }).tokens} tokens processed
+            <span style={{ color: '#6D7690', fontSize: '0.74rem' }}>
+              {(state as { tokens: number }).tokens} tokens evaluated
             </span>
           </div>
         )}
 
-        {/* Two-Column Audit Layout */}
-        <div style={{
-          display: 'flex',
-          gap: 24,
-          alignItems: 'flex-start',
-        }}>
-          {/* Column 1: Uploaded Design Card */}
-          <UploadDesignCard
-            imageUrl={imageUrl}
-            onTriggerUpload={triggerFileUpload}
-          />
-
-          {/* Column 2: Health Score, Priority Fixes & Category Breakdown */}
+        {/* Tab 1: Audit (Primary 1:1 Dashboard) */}
+        {activeTab === 'audit' && (
           <div style={{
-            flex: 1,
             display: 'flex',
-            flexDirection: 'column',
-            gap: 22,
-            minWidth: 0,
+            gap: 24,
+            alignItems: 'flex-start',
           }}>
-            {/* Health Score Card */}
-            <HealthScoreCard
-              score={currentHeader?.overall_score ?? 84}
-              grade={currentHeader?.overall_grade ?? 'A-'}
-              summary={currentHeader?.summary ?? "Your design follows modern UI principles with excellent visual hierarchy, clarity and usability. A few improvements can make it truly outstanding."}
+            {/* Column 1: Uploaded Design Card */}
+            <UploadDesignCard
+              imageUrl={imageUrl}
+              onTriggerUpload={triggerFileUpload}
             />
 
-            {/* Priority Fixes Card */}
-            <PriorityFixesCard fixes={currentFixes} />
+            {/* Column 2: Health Score, Priority Fixes & Category Breakdown */}
+            <div style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 22,
+              minWidth: 0,
+            }}>
+              {/* Health Score Card */}
+              <HealthScoreCard
+                score={score}
+                summary={summary}
+              />
 
-            {/* Category Breakdown Grid */}
-            <CategoryBreakdownGrid
-              categories={currentCategories}
-              showAll={showAllCategories}
-            />
+              {/* Priority Fixes Card */}
+              <PriorityFixesCard
+                fixes={currentFixes}
+                onViewAll={() => setDetailsModalOpen(true)}
+              />
+
+              {/* Category Breakdown Grid */}
+              <CategoryBreakdownGrid
+                categories={currentCategories}
+                showAll={showAllCategories}
+              />
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Tab 2: History */}
+        {activeTab === 'history' && (
+          <HistoryView onLoadAudit={handleLoadAudit} />
+        )}
+
+        {/* Tab 3: Templates */}
+        {activeTab === 'templates' && (
+          <TemplatesView onSelectTemplate={handleLoadAudit} />
+        )}
+
+        {/* Tab 4: Settings */}
+        {activeTab === 'settings' && (
+          <SettingsView />
+        )}
       </main>
+
+      {/* Upgrade Pro Modal */}
+      <UpgradeModal
+        isOpen={upgradeModalOpen}
+        onClose={() => setUpgradeModalOpen(false)}
+      />
+
+      {/* Audit Recommendations Details Modal */}
+      <AuditDetailsModal
+        isOpen={detailsModalOpen}
+        onClose={() => setDetailsModalOpen(false)}
+        fixes={currentFixes}
+      />
     </div>
   )
 }

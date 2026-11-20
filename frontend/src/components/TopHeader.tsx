@@ -113,10 +113,10 @@ export default function TopHeader({ onNewUpload, showAllCategories, onToggleCate
           onMouseDown={e => { e.currentTarget.style.transform = 'scale(0.98)'; }}
           onMouseUp={e => { e.currentTarget.style.transform = 'scale(1)'; }}
         >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-            <polyline points="17 8 12 3 7 8" />
-            <line x1="12" y1="3" x2="12" y2="15" />
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+            <path d="M12 12v9" />
+            <path d="m8 16 4-4 4 4" />
           </svg>
           <span>New Upload</span>
         </button>
