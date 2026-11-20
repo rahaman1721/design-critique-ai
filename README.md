@@ -14,7 +14,7 @@ Upload any UI screenshot and receive a comprehensive, real-time streaming design
 
 <div align="center">
 
-<img src="docs/screenshots/00-design-critique-showcase.jpg" alt="Design Critique AI Production Showcase" width="100%" />
+<img src="docs/screenshots/design-critique-ai-hero.jpg" alt="Design Critique AI Production Showcase" width="100%" />
 
 *Figure 1: Authentic Design Critique AI dashboard — uploaded UI screenshot (left) alongside live streaming 15-category critique, health score ring, and priority fixes (right).*
 
