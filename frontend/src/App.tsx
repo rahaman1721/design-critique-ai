@@ -247,8 +247,10 @@ export default function App() {
         {activeTab === 'audit' && (
           <div style={{
             display: 'flex',
-            gap: 16,
+            gap: 20,
             alignItems: 'flex-start',
+            width: '100%',
+            minWidth: 840,
           }}>
             {/* Column 1: Uploaded Design Card */}
             <UploadDesignCard
@@ -262,7 +264,7 @@ export default function App() {
               display: 'flex',
               flexDirection: 'column',
               gap: 16,
-              minWidth: 0,
+              minWidth: 560,
             }}>
               {/* Health Score Card */}
               <HealthScoreCard

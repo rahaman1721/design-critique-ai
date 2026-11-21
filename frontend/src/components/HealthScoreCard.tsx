@@ -18,14 +18,15 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
       border: '1px solid rgba(255, 255, 255, 0.08)',
       borderTop: '1px solid rgba(255, 255, 255, 0.16)',
       borderRadius: 16,
-      padding: '16px 22px',
+      padding: '16px 24px',
       display: 'flex',
       alignItems: 'center',
-      gap: 20,
+      gap: 24,
       overflow: 'hidden',
       boxShadow: '0 8px 32px rgba(0, 0, 0, 0.45)',
+      width: '100%',
     }}>
-      {/* 100% Authentic Luminous Silk Wave from Reference */}
+      {/* 100% Text-Free Luminous Silk Wave from Reference */}
       <img
         src={luminousWave}
         alt="Luminous Silk Wave"
@@ -35,7 +36,7 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
           right: 0,
           height: '100%',
           width: 'auto',
-          maxHeight: 140,
+          maxWidth: 220,
           objectFit: 'contain',
           pointerEvents: 'none',
           opacity: 0.95,
@@ -112,7 +113,7 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
       </div>
 
       {/* Middle Text Details */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: 320 }}>
+      <div style={{ position: 'relative', zIndex: 2, flex: 1, minWidth: 240, maxWidth: 360 }}>
         {/* Status Badge */}
         <div style={{
           display: 'inline-flex',
@@ -133,17 +134,17 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
 
         {/* Heading */}
         <h2 style={{
-          fontSize: '1.15rem',
+          fontSize: '1.18rem',
           fontWeight: 700,
           letterSpacing: '-0.02em',
           color: '#ffffff',
-          marginBottom: 3,
+          marginBottom: 4,
           lineHeight: 1.25,
         }}>
           Design Health Score
         </h2>
 
-        {/* Explanatory Assessment */}
+        {/* Explanatory Assessment on 2 Clean Lines */}
         <p style={{
           fontSize: '0.76rem',
           color: '#A1AAC2',
