@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import phoneMockup from '../assets/phone_mockup.png'
+import phoneMockup from '../assets/phone_mockup_crisp.png'
 
 interface UploadedDesignCardProps {
   imageUrl: string | null
@@ -11,7 +11,7 @@ export default function UploadDesignCard({ imageUrl, onTriggerUpload }: Uploaded
 
   return (
     <div style={{
-      width: 250,
+      width: 235,
       background: '#0c1020',
       border: '1px solid rgba(255, 255, 255, 0.08)',
       borderRadius: 16,
@@ -46,7 +46,7 @@ export default function UploadDesignCard({ imageUrl, onTriggerUpload }: Uploaded
           alignItems: 'center',
           gap: 4,
           color: '#16C995',
-          fontSize: '0.72rem',
+          fontSize: '0.7rem',
           fontWeight: 700,
         }}>
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -61,18 +61,18 @@ export default function UploadDesignCard({ imageUrl, onTriggerUpload }: Uploaded
         onClick={onTriggerUpload}
         style={{
           background: '#ffffff',
-          borderRadius: 14,
-          padding: imageUrl ? '8px' : '0',
+          borderRadius: 16,
+          padding: 0,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 380,
-          maxHeight: 390,
+          height: 360,
+          maxHeight: 360,
           cursor: 'pointer',
           position: 'relative',
           overflow: 'hidden',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
         }}
         title="Click to replace or upload a new design"
       >
@@ -83,23 +83,21 @@ export default function UploadDesignCard({ imageUrl, onTriggerUpload }: Uploaded
             style={{
               width: '100%',
               height: '100%',
-              maxHeight: 380,
               objectFit: 'contain',
-              borderRadius: 10,
+              borderRadius: 16,
             }}
           />
         ) : (
-          /* Exact Phone Mockup from Reference */
+          /* Exact Crisp Phone Mockup from Reference */
           <img
             src={phoneMockup}
             alt="Moon Bot Interface"
             style={{
               width: '100%',
               height: '100%',
-              maxHeight: 390,
               objectFit: 'cover',
               display: 'block',
-              borderRadius: 14,
+              borderRadius: 16,
             }}
           />
         )}
@@ -113,7 +111,7 @@ export default function UploadDesignCard({ imageUrl, onTriggerUpload }: Uploaded
         marginTop: 10,
         padding: '0 2px',
         color: '#64748b',
-        fontSize: '0.72rem',
+        fontSize: '0.7rem',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -128,7 +126,7 @@ export default function UploadDesignCard({ imageUrl, onTriggerUpload }: Uploaded
             background: 'none',
             border: 'none',
             color: '#94a3b8',
-            fontSize: '0.72rem',
+            fontSize: '0.7rem',
             fontWeight: 600,
             cursor: 'pointer',
             display: 'flex',

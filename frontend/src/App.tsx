@@ -149,30 +149,30 @@ export default function App() {
       display: 'flex',
       height: '100vh',
       width: '100vw',
-      background: '#070916',
+      background: 'radial-gradient(circle 800px at 85% 10%, rgba(99, 102, 241, 0.18) 0%, rgba(120, 101, 255, 0.08) 50%, #060814 85%)',
       position: 'relative',
       overflow: 'hidden',
     }}>
       {/* Authentic Ambient Atmospheric Aurora Lighting Layers */}
       <div style={{
         position: 'absolute',
-        top: -100,
-        right: -100,
-        width: 800,
-        height: 600,
-        background: 'radial-gradient(circle at 60% 30%, rgba(99, 102, 241, 0.15) 0%, rgba(120, 101, 255, 0.08) 45%, transparent 75%)',
-        filter: 'blur(60px)',
+        top: -80,
+        right: 0,
+        width: 700,
+        height: 500,
+        background: 'radial-gradient(circle at 65% 30%, rgba(120, 101, 255, 0.22) 0%, rgba(78, 139, 255, 0.12) 45%, transparent 75%)',
+        filter: 'blur(70px)',
         pointerEvents: 'none',
         zIndex: 0,
       }} />
 
       <div style={{
         position: 'absolute',
-        bottom: -50,
-        left: 200,
-        width: 600,
-        height: 500,
-        background: 'radial-gradient(circle at 30% 70%, rgba(120, 101, 255, 0.07) 0%, transparent 70%)',
+        bottom: 0,
+        left: 0,
+        width: 500,
+        height: 450,
+        background: 'radial-gradient(circle at 20% 80%, rgba(120, 101, 255, 0.12) 0%, transparent 70%)',
         filter: 'blur(80px)',
         pointerEvents: 'none',
         zIndex: 0,
@@ -199,7 +199,7 @@ export default function App() {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        padding: '18px 26px',
+        padding: '16px 24px',
         overflow: 'hidden auto',
         height: '100%',
         position: 'relative',
@@ -219,7 +219,7 @@ export default function App() {
             border: '1px solid rgba(120, 101, 255, 0.3)',
             borderRadius: 8,
             padding: '10px 16px',
-            marginBottom: 16,
+            marginBottom: 14,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -247,7 +247,7 @@ export default function App() {
         {activeTab === 'audit' && (
           <div style={{
             display: 'flex',
-            gap: 18,
+            gap: 16,
             alignItems: 'flex-start',
           }}>
             {/* Column 1: Uploaded Design Card */}
@@ -261,7 +261,7 @@ export default function App() {
               flex: 1,
               display: 'flex',
               flexDirection: 'column',
-              gap: 22,
+              gap: 16,
               minWidth: 0,
             }}>
               {/* Health Score Card */}
