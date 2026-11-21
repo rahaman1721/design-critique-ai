@@ -5,7 +5,7 @@ interface CategoryBreakdownGridProps {
   showAll?: boolean
 }
 
-// Master list of 15 audit categories with minimal line icons and descriptions
+// Master list of 15 audit categories matching reference
 const MASTER_15_CATEGORIES = [
   {
     name: 'Visual Hierarchy',
@@ -15,7 +15,7 @@ const MASTER_15_CATEGORIES = [
     progress: 98,
     desc: 'Clear focal points and good visual flow.',
     icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4E8BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
         <circle cx="12" cy="12" r="3" />
       </svg>
@@ -29,7 +29,7 @@ const MASTER_15_CATEGORIES = [
     progress: 79,
     desc: 'Good contrast, consider minor adjustments.',
     icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c084fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c084fc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <path d="M12 2a7 7 0 0 0 0 14v6" />
       </svg>
@@ -43,7 +43,7 @@ const MASTER_15_CATEGORIES = [
     progress: 97,
     desc: 'Well-chosen type scale and spacing.',
     icon: (
-      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--accent-primary)', fontFamily: 'Inter' }}>Aa</span>
+      <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#7865FF', fontFamily: 'Inter' }}>Aa</span>
     ),
   },
   {
@@ -54,7 +54,7 @@ const MASTER_15_CATEGORIES = [
     progress: 96,
     desc: 'Clean and balanced layout.',
     icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4E8BFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect width="18" height="18" x="3" y="3" rx="2" />
         <path d="M3 9h18" />
         <path d="M9 21V9" />
@@ -69,7 +69,7 @@ const MASTER_15_CATEGORIES = [
     progress: 68,
     desc: 'Add focus states and improve contrast.',
     icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5AE42" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="4" r="2" />
         <path d="m9 20 3-6 3 6" />
         <path d="m6 8 6 2 6-2" />
@@ -85,145 +85,14 @@ const MASTER_15_CATEGORIES = [
     progress: 95,
     desc: 'Clear and prominent call to action.',
     icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7865FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="3 3 10.07 19.97 12.58 12.58 19.97 10.07 3 3" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Navigation & Wayfinding',
-    badge: 'Good',
-    statusType: 'info',
-    score: '8.8 / 10',
-    progress: 88,
-    desc: 'Intuitive route hierarchy and breadcrumbs.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 19 21 12 17 5 21 12 2" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Consistency & Design System',
-    badge: 'Excellent',
-    statusType: 'success',
-    score: '9.4 / 10',
-    progress: 94,
-    desc: 'Strict component reusability and token fidelity.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Mobile Responsiveness',
-    badge: 'Good',
-    statusType: 'info',
-    score: '8.6 / 10',
-    progress: 86,
-    desc: 'Responsive fluid scaling down to 375px.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
-        <path d="M12 18h.01" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Touch Target Sizing',
-    badge: 'Needs Work',
-    statusType: 'warning',
-    score: '7.2 / 10',
-    progress: 72,
-    desc: 'Expand compact icon buttons to 44px hit bounds.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <circle cx="12" cy="12" r="4" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Information Architecture',
-    badge: 'Excellent',
-    statusType: 'success',
-    score: '9.5 / 10',
-    progress: 95,
-    desc: 'Clear chunking and manageable cognitive load.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" x2="12" y1="20" y2="10" />
-        <line x1="18" x2="18" y1="20" y2="4" />
-        <line x1="6" x2="6" y1="20" y2="16" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Loading & Empty States',
-    badge: 'Good',
-    statusType: 'info',
-    score: '8.4 / 10',
-    progress: 84,
-    desc: 'Skeleton loaders mirror layout geometry.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" x2="12" y1="2" y2="6" />
-        <line x1="12" x2="12" y1="18" y2="22" />
-        <line x1="4.93" x2="7.76" y1="4.93" y2="7.76" />
-        <line x1="16.24" x2="19.07" y1="16.24" y2="19.07" />
-        <line x1="2" x2="6" y1="12" y2="12" />
-        <line x1="18" x2="22" y1="12" y2="12" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Error Handling UX',
-    badge: 'Good',
-    statusType: 'info',
-    score: '8.7 / 10',
-    progress: 87,
-    desc: 'Inline recovery paths without destructive loss.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" x2="12" y1="8" y2="12" />
-        <line x1="12" x2="12.01" y1="16" y2="16" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Micro-interactions & Feedback',
-    badge: 'Good',
-    statusType: 'info',
-    score: '8.9 / 10',
-    progress: 89,
-    desc: 'Haptic state changes and 150ms transitions.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v4" />
-        <path d="m4.93 4.93 2.83 2.83" />
-        <path d="M2 12h4" />
-      </svg>
-    ),
-  },
-  {
-    name: 'Overall Brand Alignment',
-    badge: 'Excellent',
-    statusType: 'success',
-    score: '9.8 / 10',
-    progress: 98,
-    desc: 'Contemporary, sophisticated dark aesthetic.',
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
   },
 ]
 
 export default function CategoryBreakdownGrid({ categories, showAll = false }: CategoryBreakdownGridProps) {
-  // If dynamic categories are passed from SSE, map them; otherwise use the master 15 list
   const allItems = categories && categories.length > 0
     ? categories.map((c, i) => {
         const isExcellent = c.score >= 9
@@ -246,58 +115,42 @@ export default function CategoryBreakdownGrid({ categories, showAll = false }: C
   const displayItems = showAll ? allItems : allItems.slice(0, 6)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {/* Header */}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {/* Header Matching Reference Exactly */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
         padding: '0 2px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7865FF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <rect width="7" height="7" x="3" y="3" rx="1" />
             <rect width="7" height="7" x="14" y="3" rx="1" />
             <rect width="7" height="7" x="14" y="14" rx="1" />
             <rect width="7" height="7" x="3" y="14" rx="1" />
           </svg>
           <h3 style={{
-            fontSize: '0.92rem',
+            fontSize: '0.88rem',
             fontWeight: 700,
-            color: 'var(--text-primary)',
+            color: '#ffffff',
             letterSpacing: '-0.01em',
           }}>
-            Category Breakdown {showAll ? '(All 15 Evaluated)' : '(Top 6 Focus Areas)'}
+            Category Breakdown
           </h3>
         </div>
-
-        <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-          {allItems.length}/15 Categories
-        </span>
       </div>
 
-      {/* Grid: 3 columns with consistent 12px gaps */}
+      {/* Grid: 3 columns, 2 rows matching reference */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: 12,
+        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+        gap: 10,
       }}>
         {displayItems.map((cat, idx) => {
-          const badgeBg = cat.statusType === 'success'
-            ? 'var(--success-bg)'
-            : cat.statusType === 'warning'
-            ? 'var(--warning-bg)'
-            : 'rgba(78, 139, 255, 0.12)'
-          const badgeColor = cat.statusType === 'success'
-            ? 'var(--success)'
-            : cat.statusType === 'warning'
-            ? 'var(--warning)'
-            : 'var(--accent-secondary)'
-          const badgeBorder = cat.statusType === 'success'
-            ? 'var(--success-border)'
-            : cat.statusType === 'warning'
-            ? 'var(--warning-border)'
-            : 'rgba(78, 139, 255, 0.3)'
+          const isSuccess = cat.statusType === 'success'
+          const badgeBg = isSuccess ? 'rgba(22, 201, 149, 0.15)' : 'rgba(245, 174, 66, 0.15)'
+          const badgeColor = isSuccess ? '#16C995' : '#F5AE42'
+          const badgeBorder = isSuccess ? 'rgba(22, 201, 149, 0.3)' : 'rgba(245, 174, 66, 0.3)'
 
           return (
             <div
@@ -305,59 +158,64 @@ export default function CategoryBreakdownGrid({ categories, showAll = false }: C
               style={{
                 background: '#090b17',
                 border: '1px solid rgba(255, 255, 255, 0.06)',
-                borderRadius: 14,
-                padding: '16px',
+                borderRadius: 12,
+                padding: '12px 14px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                gap: 10,
-                minHeight: 110,
-                transition: 'background 0.15s ease, border-color 0.15s ease, transform 0.1s ease',
+                gap: 8,
+                minHeight: 90,
+                minWidth: 0,
+                transition: 'background 0.15s ease, border-color 0.15s ease',
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'var(--bg-elevated)'
-                e.currentTarget.style.borderColor = 'var(--border-hover)'
+                e.currentTarget.style.background = '#101428'
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'var(--bg-card)'
-                e.currentTarget.style.borderColor = 'var(--border-subtle)'
+                e.currentTarget.style.background = '#090b17'
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.06)'
               }}
             >
               {/* Row 1: Icon + Title + Status Pill */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>{cat.icon}</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>{cat.icon}</div>
                   <span style={{
-                    fontSize: '0.84rem',
+                    fontSize: '0.8rem',
                     fontWeight: 600,
-                    color: 'var(--text-primary)',
+                    color: '#ffffff',
                     letterSpacing: '-0.01em',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}>
                     {cat.name}
                   </span>
                 </div>
 
                 <span style={{
-                  fontSize: '0.66rem',
+                  fontSize: '0.64rem',
                   fontWeight: 700,
-                  padding: '2px 8px',
+                  padding: '1px 7px',
                   borderRadius: 20,
                   background: badgeBg,
                   color: badgeColor,
                   border: `1px solid ${badgeBorder}`,
-                  letterSpacing: '0.02em',
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
                 }}>
                   {cat.badge}
                 </span>
               </div>
 
-              {/* Row 2: Score + Sleek Progress Bar */}
+              {/* Row 2: Score + Progress Bar */}
               <div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 4 }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 3 }}>
                   <span style={{
-                    fontSize: '0.74rem',
+                    fontSize: '0.72rem',
                     fontWeight: 700,
-                    color: 'var(--text-primary)',
+                    color: '#ffffff',
                     fontFamily: 'Inter',
                   }}>
                     {cat.score}
@@ -365,7 +223,7 @@ export default function CategoryBreakdownGrid({ categories, showAll = false }: C
                 </div>
                 <div style={{
                   width: '100%',
-                  height: 4,
+                  height: 3.5,
                   background: 'rgba(255, 255, 255, 0.06)',
                   borderRadius: 999,
                   overflow: 'hidden',
@@ -375,7 +233,7 @@ export default function CategoryBreakdownGrid({ categories, showAll = false }: C
                     height: '100%',
                     background: badgeColor,
                     borderRadius: 999,
-                    boxShadow: `0 0 6px ${badgeColor}60`,
+                    boxShadow: `0 0 5px ${badgeColor}60`,
                     transition: 'width 0.8s ease',
                   }} />
                 </div>
@@ -383,9 +241,9 @@ export default function CategoryBreakdownGrid({ categories, showAll = false }: C
 
               {/* Row 3: Single-line explanation */}
               <div style={{
-                fontSize: '0.73rem',
-                color: 'var(--text-muted)',
-                lineHeight: 1.4,
+                fontSize: '0.7rem',
+                color: '#6D7690',
+                lineHeight: 1.3,
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',

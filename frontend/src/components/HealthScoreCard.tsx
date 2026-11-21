@@ -7,7 +7,7 @@ interface HealthScoreCardProps {
 }
 
 export default function HealthScoreCard({ score = 94, summary }: HealthScoreCardProps) {
-  const r = 38
+  const r = 34
   const c = 2 * Math.PI * r
   const offset = c - (score / 100) * c
 
@@ -16,15 +16,15 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
       position: 'relative',
       background: 'linear-gradient(135deg, #090e1d 0%, #060914 100%)',
       border: '1px solid rgba(255, 255, 255, 0.08)',
-      borderRadius: 18,
-      padding: '24px 28px',
+      borderRadius: 16,
+      padding: '18px 24px',
       display: 'flex',
       alignItems: 'center',
-      gap: 28,
+      gap: 22,
       overflow: 'hidden',
       boxShadow: '0 8px 32px rgba(0, 0, 0, 0.45)',
     }}>
-      {/* 100% Clean Authentic Silk Wave from Reference (Zero text baked in) */}
+      {/* 100% Clean Silk Wave from Reference (Zero text baked in) */}
       <img
         src={cleanWave}
         alt="Glowing Silk Wave"
@@ -34,7 +34,7 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
           right: 0,
           height: '100%',
           width: 'auto',
-          maxHeight: 180,
+          maxHeight: 150,
           objectFit: 'contain',
           pointerEvents: 'none',
           opacity: 0.95,
@@ -44,64 +44,64 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
 
       {/* Circular Progress Gauge with Dual Neon Sparkles */}
       <div style={{ position: 'relative', flexShrink: 0, zIndex: 2 }}>
-        <svg width="98" height="98" viewBox="0 0 98 98">
+        <svg width="86" height="86" viewBox="0 0 86 86">
           {/* Background Track */}
           <circle
-            cx="49"
-            cy="49"
+            cx="43"
+            cy="43"
             r={r}
             fill="none"
             stroke="rgba(255, 255, 255, 0.08)"
-            strokeWidth="6.5"
+            strokeWidth="6"
           />
           {/* Glowing Neon Cyan Progress Stroke */}
           <circle
-            cx="49"
-            cy="49"
+            cx="43"
+            cy="43"
             r={r}
             fill="none"
             stroke="#00f2fe"
-            strokeWidth="6.5"
+            strokeWidth="6"
             strokeLinecap="round"
             strokeDasharray={c}
             strokeDashoffset={offset}
-            transform="rotate(-90 49 49)"
+            transform="rotate(-90 43 43)"
             style={{
-              filter: 'drop-shadow(0 0 10px rgba(0, 242, 254, 0.85)) drop-shadow(0 0 20px rgba(0, 242, 254, 0.4))',
+              filter: 'drop-shadow(0 0 8px rgba(0, 242, 254, 0.85)) drop-shadow(0 0 16px rgba(0, 242, 254, 0.4))',
               transition: 'stroke-dashoffset 1s ease',
             }}
           />
           {/* Top-Right Neon Sparkle Star on Ring */}
           <path
-            d="M74 24L75.5 28L79.5 29.5L75.5 31L74 35L72.5 31L68.5 29.5L72.5 28Z"
+            d="M65 21L66.5 24.5L70 26L66.5 27.5L65 31L63.5 27.5L60 26L63.5 24.5Z"
             fill="#a5f3fc"
-            style={{ filter: 'drop-shadow(0 0 6px #00f2fe)' }}
+            style={{ filter: 'drop-shadow(0 0 5px #00f2fe)' }}
           />
           {/* Bottom-Left Neon Sparkle Star on Ring */}
           <path
-            d="M24 70L25 72.5L27.5 73.5L25 74.5L24 77L23 74.5L20.5 73.5L23 72.5Z"
+            d="M21 61L22 63.5L24.5 64.5L22 65.5L21 68L20 65.5L17.5 64.5L20 63.5Z"
             fill="#a5f3fc"
-            style={{ filter: 'drop-shadow(0 0 6px #00f2fe)' }}
+            style={{ filter: 'drop-shadow(0 0 5px #00f2fe)' }}
           />
 
           {/* Numerical Score */}
           <text
-            x="49"
-            y="46"
+            x="43"
+            y="41"
             textAnchor="middle"
             fill="#ffffff"
-            fontSize="26"
+            fontSize="23"
             fontWeight="800"
             fontFamily="'Plus Jakarta Sans', sans-serif"
           >
             {score}
           </text>
           <text
-            x="49"
-            y="62"
+            x="43"
+            y="55"
             textAnchor="middle"
             fill="#94a3b8"
-            fontSize="10"
+            fontSize="9.5"
             fontWeight="600"
             fontFamily="'Plus Jakarta Sans', sans-serif"
           >
@@ -111,20 +111,20 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
       </div>
 
       {/* Middle Text Details */}
-      <div style={{ position: 'relative', zIndex: 2, maxWidth: 410 }}>
+      <div style={{ position: 'relative', zIndex: 2, maxWidth: 330 }}>
         {/* Status Badge */}
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: 6,
-          padding: '3px 10px',
+          gap: 5,
+          padding: '2px 8px',
           borderRadius: 20,
           background: 'rgba(22, 201, 149, 0.15)',
           border: '1px solid rgba(22, 201, 149, 0.35)',
           color: '#16C995',
-          fontSize: '0.74rem',
+          fontSize: '0.7rem',
           fontWeight: 700,
-          marginBottom: 8,
+          marginBottom: 6,
         }}>
           <span>Excellent</span>
           <span>✨</span>
@@ -132,11 +132,11 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
 
         {/* Heading */}
         <h2 style={{
-          fontSize: '1.24rem',
+          fontSize: '1.15rem',
           fontWeight: 700,
           letterSpacing: '-0.02em',
           color: '#ffffff',
-          marginBottom: 6,
+          marginBottom: 4,
           lineHeight: 1.25,
         }}>
           Design Health Score
@@ -144,9 +144,9 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
 
         {/* Explanatory Assessment */}
         <p style={{
-          fontSize: '0.82rem',
+          fontSize: '0.77rem',
           color: '#A1AAC2',
-          lineHeight: 1.5,
+          lineHeight: 1.45,
           margin: 0,
         }}>
           {summary || "Your design follows modern UI principles with excellent visual hierarchy, clarity and usability. A few improvements can make it truly outstanding."}

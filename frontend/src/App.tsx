@@ -199,7 +199,7 @@ export default function App() {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        padding: '24px 32px',
+        padding: '18px 26px',
         overflow: 'hidden auto',
         height: '100%',
         position: 'relative',
@@ -219,7 +219,7 @@ export default function App() {
             border: '1px solid rgba(120, 101, 255, 0.3)',
             borderRadius: 8,
             padding: '10px 16px',
-            marginBottom: 20,
+            marginBottom: 16,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -247,7 +247,7 @@ export default function App() {
         {activeTab === 'audit' && (
           <div style={{
             display: 'flex',
-            gap: 24,
+            gap: 18,
             alignItems: 'flex-start',
           }}>
             {/* Column 1: Uploaded Design Card */}
