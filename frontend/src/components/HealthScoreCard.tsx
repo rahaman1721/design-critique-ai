@@ -26,7 +26,7 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
       boxShadow: '0 8px 32px rgba(0, 0, 0, 0.45)',
       width: '100%',
     }}>
-      {/* 100% Text-Free Luminous Silk Wave from Reference */}
+      {/* 100% Zero-Ghost Text-Free Luminous Silk Wave */}
       <img
         src={luminousWave}
         alt="Luminous Silk Wave"
@@ -112,8 +112,8 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
         </svg>
       </div>
 
-      {/* Middle Text Details */}
-      <div style={{ position: 'relative', zIndex: 2, flex: 1, minWidth: 240, maxWidth: 360 }}>
+      {/* Middle Text Details: Expanded to 440px to fit on exactly 2 clean lines */}
+      <div style={{ position: 'relative', zIndex: 2, flex: 1, minWidth: 260, maxWidth: 450 }}>
         {/* Status Badge */}
         <div style={{
           display: 'inline-flex',
@@ -150,6 +150,7 @@ export default function HealthScoreCard({ score = 94, summary }: HealthScoreCard
           color: '#A1AAC2',
           lineHeight: 1.45,
           margin: 0,
+          maxWidth: 440,
         }}>
           {summary || "Your design follows modern UI principles with excellent visual hierarchy, clarity and usability. A few improvements can make it truly outstanding."}
         </p>
